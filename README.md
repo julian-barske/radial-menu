@@ -45,6 +45,7 @@ resources:
 | `items`             | `list`    | **Required** | List of items to display in the radial. See [item options](#item-options) | `none`                |
 | `name`              | `string`  | **Optional** | Tooltip for main menu                                                     | `Menu`                |
 | `icon`              | `string`  | **Optional** | mdi icon for main menu                                                    | `mdi:menu`            |
+| `state_icon`        | `map`     | **Optional** | mdi icon to use for specific states                                       | `none`                |
 | `entity_picture`    | `string`  | **Optional** | picture to display                                                        | `none`                |
 | `default_open`      | `boolean` | **Optional** | Should the radial be expanded on first load                               | `false`               |
 | `default_dismiss`   | `boolean` | **Optional** | Should the radial be dismissed on click                                   | `true`                |
@@ -62,6 +63,7 @@ resources:
 | `entity`            | `string` | **Optional** | Home Assistant entity ID.                                           | `none`              |
 | `name`              | `string` | **Optional** | Tooltip for main menu                                               | `Menu`              |
 | `icon`              | `string` | **Optional** | mdi icon for main menu                                              | `none`              |
+| `state_icon`        | `map`    | **Optional** | mdi icon to use for specific states                                 | `none`              |
 | `entity_picture`    | `string` | **Optional** | picture to display                                                  | `none`              |
 | `tap_action`        | `map`    | **Optional** | Action to take on tap. See [action options](#action-options)        | `action: more-info` |
 | `hold_action`       | `map`    | **Optional** | Action to take on hold. See [action options](#action-options)       | `none`              |
@@ -104,7 +106,9 @@ hold_action:
   url: https://www.home-assistant.io
 items:
   - entity: light.bed_light
-    icon: 'mdi:flash'
+    state_icon:
+      'on': 'mdi:flash'
+      'off': 'mdi:flash-off'
     name: Bedroom Light
     tap_action:
       action: toggle
