@@ -4,6 +4,8 @@ export interface RadialMenuConfig {
   type: string;
   name?: string;
   icon?: string;
+  state_icon?: Map<string, string>;
+  entity?: string;
   entity_picture?: string;
   default_open?: boolean;
   default_dismiss?: boolean;
@@ -16,6 +18,7 @@ export interface RadialMenuConfig {
 
 export interface RadialMenuItemConfig {
   icon?: string;
+  state_icon?: Map<string, string>;
   entity_picture?: string;
   name?: string;
   entity?: string;

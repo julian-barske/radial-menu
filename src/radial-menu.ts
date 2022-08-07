@@ -1,7 +1,7 @@
 import { LitElement, html, customElement, property, TemplateResult, css, CSSResult, PropertyValues } from 'lit-element';
 import { HomeAssistant, handleAction, hasAction, createThing, applyThemesOnElement } from 'custom-card-helpers';
 
-import { RadialMenuConfig } from './types';
+import { RadialMenuConfig, RadialMenuItemConfig } from './types';
 import { CARD_VERSION } from './const';
 import { actionHandler } from './action-handler-directive';
 
@@ -58,6 +58,13 @@ export class RadialMenu extends LitElement {
 
   public getCardSize(): number {
     return 1;
+  }
+
+  protected getIcon(item: RadialMenuConfig | RadialMenuItemConfig) {
+    if (item.state_icon && item.entity && this.hass) {
+      return item.state_icon[this.hass.states[item.entity].state];
+    }
+    return item.icon;
   }
 
   protected render(): TemplateResult | void {
@@ -126,7 +133,7 @@ export class RadialMenu extends LitElement {
                       hasDoubleClick: hasAction(item.double_tap_action),
                     })}
                     .config=${item}
-                    .icon=${item.icon}
+                    .icon=${this.getIcon(item)}
                     .title=${item.name ? item.name : ''}
                     style="
                 left:${left};
@@ -163,7 +170,7 @@ export class RadialMenu extends LitElement {
                   hasHold: hasAction(this._config.hold_action),
                   hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
-                .icon=${this._config.icon}
+                .icon=${this.getIcon(this._config)}
                 .title=${this._config.name ? this._config.name : ''}
                 .config=${this._config}
               ></ha-icon>
